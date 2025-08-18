@@ -110,7 +110,7 @@ export const updateProfile = async (request, response, next) => {
     try {
         const {userId} =request;
         const { firstName, lastName, color } = request.body;
-        if (!firstName || !lastName || !color) {
+        if (!firstName || !lastName ) {
             return response.status(404).send("User with given id is not found");
         }
 
