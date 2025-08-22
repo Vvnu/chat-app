@@ -22,6 +22,10 @@ const Profile = () => {
   const [image, setImage] = useState(null);
   const [hovered, setHovered] = useState(false);
   const [selectedColor, setSelectedColor] = useState(0);
+  const fileInputRef = useState(null);
+
+
+
 
 useEffect(() => {
   if (userInfo?.profileSetup) {
@@ -66,11 +70,37 @@ useEffect(() => {
     }
   }
   };
+const handleNavigate=() => {
+  if(userInfo.profileSetup){
+    navigate("/chat");
+  } else {
+    toast.error("Please complete your profile setup first");
+  }
+};
+
+
+const handleFileInputClick = () => {
+  fileInputRef.current.click();
+};
+
+const handleImageChange = async (event) => {
+  const file = event.target.files[0];
+  console.log({ file });
+  if(file){
+    const formData = new FormData();
+    formData.append("profile-image", file);
+    const response = await apiClient.post();
+  }
+}
+
+const handleDeleteImage = async () => {}
+
+
 
   return (
     <div className="bg-[#1b1c24] h-[100vh] flex items-center justify-center flex-col gap-10">
       <div className="flex flex-col gap-10 w-[80vw] md:w-max">
-        <div>
+        <div onClick={handleNavigate}>
           <IoArrowBack
             onClick={() => navigate(-1)}
             className="text-4xl lg:text-6xl text-white/90 cursor-pointer"
@@ -98,7 +128,9 @@ useEffect(() => {
               )}
             </Avatar>
    {hovered && (
-  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 md:w-48 md:h-48 flex items-center justify-center bg-black/50 rounded-full ring-2 ring-fuchsia-500 hover:bg-black/40 transition-all duration-300">
+  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 md:w-48 md:h-48 flex items-center justify-center bg-black/50 rounded-full ring-2 ring-fuchsia-500 hover:bg-black/40 transition-all duration-300" 
+    onClick={image ? handleDeleteImage : handleFileInputClick}
+  >
     {image ? (
       <FaTrash className="text-white text-3xl cursor-pointer" />
     ) : (
@@ -106,7 +138,9 @@ useEffect(() => {
     )}
   </div>
 )}
-{/* <input type="text"  /> */}
+<input type="file"   ref={fileInputRef} className="hidden" 
+onChange={handleImageChange} name="profile-image" accept=".png, .jpg, .jpeg, .svg,  .webp"
+/>
           </div>
           <div className="flex min-w-32 md:min-w-64 flex-col gap-5 text-white items-center justify-center">
               <div className="w-full">
