@@ -5,11 +5,13 @@ import { IoArrowBack } from "react-icons/io5";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { colors, getColor } from "@/lib/utils";
 import { FaPlus, FaTrash } from "react-icons/fa";
+// import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 // import colors from "@tailwindcss/postcss7-compat/colors";
 import { toast } from "sonner";
 import { apiClient } from "@/lib/api-client"; 
 import { UPDATE_PROFILE_ROUTE } from "@/utils/constants";
+import { ADD_PROFILE_IMAGE_ROUTE } from "@/utils/constants";
 
 
 
@@ -89,9 +91,15 @@ const handleImageChange = async (event) => {
   if(file){
     const formData = new FormData();
     formData.append("profile-image", file);
-    const response = await apiClient.post();
+    const response = await apiClient.post(ADD_PROFILE_IMAGE_ROUTE ,formData, {withCredentials: true,  
+    });
+    if( response.status === 200 && response.data.image){
+      setUserInfo({...userInfo, image: response.data.image});
+      toast.success("Profile image updated successfully");
   }
+  
 }
+};
 
 const handleDeleteImage = async () => {}
 
@@ -138,8 +146,12 @@ const handleDeleteImage = async () => {}
     )}
   </div>
 )}
-<input type="file"   ref={fileInputRef} className="hidden" 
-onChange={handleImageChange} name="profile-image" accept=".png, .jpg, .jpeg, .svg,  .webp"
+<input type="file"   
+ref={(el) => (fileInputRef.current = el)} // 👈 function ref
+className="hidden" 
+onChange={handleImageChange} 
+name="profile-image" 
+accept=".png, .jpg, .jpeg, .svg,  .webp"
 />
           </div>
           <div className="flex min-w-32 md:min-w-64 flex-col gap-5 text-white items-center justify-center">
