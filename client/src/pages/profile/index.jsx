@@ -11,7 +11,8 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { apiClient } from "@/lib/api-client"; 
 import { UPDATE_PROFILE_ROUTE } from "@/utils/constants";
-import { ADD_PROFILE_IMAGE_ROUTE } from "@/utils/constants";
+import { ADD_PROFILE_IMAGE_ROUTE , REMOVE_PROFILE_IMAGE_ROUTE } from "@/utils/constants";
+import { HOST } from "@/utils/constants";
 
 
 
@@ -34,6 +35,9 @@ useEffect(() => {
     setFirstName(userInfo.firstName);
     setLastName(userInfo.lastName);
     setSelectedColor(colors.indexOf(userInfo.color)); // ✅ fix
+  }
+  if (userInfo.image) {
+    setImage(`${HOST}/${userInfo.image}`);
   }
 }, [userInfo]);
 
@@ -101,7 +105,20 @@ const handleImageChange = async (event) => {
 }
 };
 
-const handleDeleteImage = async () => {}
+const handleDeleteImage = async () => {
+  try{
+    const response = await apiClient.delete(REMOVE_PROFILE_IMAGE_ROUTE, {withCredentials: true});
+    if(response.status === 200){
+      setUserInfo({...userInfo, image: null});
+      toast.success("Profile image deleted successfully");
+      setImage(null);
+    }
+  } catch (error) {
+    console.error("Error deleting profile image:", error);
+    toast.error("Failed to delete profile image");
+  }
+
+};
 
 
 

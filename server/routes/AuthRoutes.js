@@ -23,6 +23,6 @@ authRoutes.post("/add-profile-image",verifyToken,
      upload.single('profile-image'),
      addProfileImage); // ADD route for adding profile image
 
-authRoutes.delete("/delete-profile-image",verifyToken, removeProfileImage); // ADD route for removing profile image
+authRoutes.delete("/remove-profile-image",verifyToken, removeProfileImage); // ADD route for removing profile image
 
 export default authRoutes;
