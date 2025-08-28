@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge"
-// import animationData from "@/lib/utils"; // make sure it's a .json file
+import animationData from "@/assets/lottie-json"; // <-- make sure this path points to your .json file
 
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
@@ -26,3 +26,5 @@ export const animationDefaultOptions = {
   autoplay: true,
   animationData: animationData,
 };
+
+
