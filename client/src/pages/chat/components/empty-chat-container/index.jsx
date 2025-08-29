@@ -1,52 +1,29 @@
 import Lottie from "react-lottie";
-import GradientAnimation from "@/assets/gradient.json";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import PulsingAnimation from "@/assets/Pulsing.json"; // ✅ correct import
-
 import { animationDefaultOptions } from "@/lib/utils";
 
 const EmptyChatContainer = () => {
   return (
-    <div className="flex-1 md:bg-[#1c1d25] md:flex flex-col justify-center items-center hidden duration-1000 transition-all">
-      {/* JSON animation using react-lottie */}
-      {/* <Lottie
+    <div className="flex-1 md:bg-[#1c1d25] md:flex flex-col justify-center items-center hidden duration-1000 transition-all border-r-2 border-[#5f6c9f]">
+      
+       <Lottie
         isClickToPauseDisabled={true}
         height={200}
         width={200}
         options={animationDefaultOptions}
-      /> */}
+      />
 
-      {/* <Lottie
-        isClickToPauseDisabled={true}
-        height={400}
-        width={400}
-        options={{
-          loop: true,
-          autoplay: true,
-          animationData: GradientAnimation,
-          rendererSettings: {
-            preserveAspectRatio: "xMidYMid slice",
-          },
-        }}
-      /> */}
+
 
       {/* .lottie animation using DotLottieReact */}
-    <Lottie
-        isClickToPauseDisabled={true}
-        height={700}
-        width={700}
-        options={{
-          loop: true,
-          autoplay: true,
-          animationData: PulsingAnimation,
-          rendererSettings: {
-            preserveAspectRatio: "xMidYMid slice",
-          },
-        }}
-      />
-      <h1 className="text-2xl text-gray-400 font-semibold">
-        Select a chat to start messaging
-      </h1>
+
+     <div className="text-opacity-80 text-white flex flex-col items-center mt-10 lg:text-4xl text-3xl transition-all duration-300 text-center">
+        <h3 className="popins-medium">
+          Hi <span className="text-purple-500">!</span>
+          <span className="text-purple-500"> VAAG </span>CHAT APP
+          <span className="text-purple-500"></span>
+        </h3>
+      </div>
+      
     </div>
   );
 };
