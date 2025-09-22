@@ -17,7 +17,7 @@ const EmptyChatContainer = () => {
       {/* .lottie animation using DotLottieReact */}
 
      <div className="text-opacity-80 text-white flex flex-col items-center mt-10 lg:text-4xl text-3xl transition-all duration-300 text-center">
-        <h3 className="popins-medium">
+        <h3 className="poppins-medium">
           Hi <span className="text-purple-500">!</span>
           <span className="text-purple-500"> VAAG </span>CHAT APP
           <span className="text-purple-500"></span>

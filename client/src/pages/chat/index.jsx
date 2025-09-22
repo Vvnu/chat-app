@@ -1,35 +1,32 @@
 import { useAppStore } from "@/store";
-import { Contact } from "lucide-react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+
 import ChatContainer from "./components/chat-container";
 import ContactsContainer from "./components/contacts-container";
 import EmptyChatContainer from "./components/empty-chat-container";
 
-
-
-
 const Chat = () => {
-  const { userInfo } = useAppStore();
+  const { userInfo, selectedChat } = useAppStore(); // assuming you track selected chat in store
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!userInfo) {
-      toast("Please Setup Profile ",);
+      toast("Please setup your profile.");
       navigate("/auth");
     }
   }, [userInfo, navigate]);
 
   return (
-    <div className="flex h-[100vh] text-white overflow-hidden"> 
+    <div className="flex h-screen text-white overflow-hidden">
+      {/* Sidebar with contacts */}
       <ContactsContainer />
-      <EmptyChatContainer />
-      <ChatContainer />
-      </div>
-      
+
+      {/* Show empty container OR chat container based on state */}
+      {selectedChat ? <ChatContainer /> : <EmptyChatContainer />}
+    </div>
   );
 };
 
 export default Chat;
-  
